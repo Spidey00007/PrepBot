@@ -2,7 +2,7 @@ import { SignUp } from "@clerk/nextjs";
 
 export default function Page() {
   return (
-    <div>
+    <div className="bg-teal-50">
       <div className="flex flex-wrap">
         <div className="flex w-full h-screen flex-col md:w-1/2">
           <div className="lg:w-[28rem] mx-auto my-auto flex flex-col justify-center pt-8 md:justify-start md:px-6 md:pt-0">
@@ -21,7 +21,7 @@ export default function Page() {
           </div>
         </div>
         <div className="pointer-events-none relative hidden h-screen select-none bg-black md:block md:w-1/2">
-          <div className="absolute bottom-0 z-10 px-8 text-white opacity-100">
+          <div className="absolute bottom-0 z-10 px-8 text-teal-300 opacity-100">
             <p className="mb-8 text-3xl font-semibold leading-10">
               We work 10x faster than our competitors and stay consistent. While
               they're bogged down with technical debt, we're releasing new
