@@ -11,16 +11,74 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { chatSession } from "../../../utils/GeminiAIModal";
+import { LoaderCircle } from "lucide-react";
+import { db } from "@/utils/db";
+import { MockInterview } from "@/utils/schema";
+import { v4 as uuidv4 } from "uuid";
+import { useUser } from "@clerk/clerk-react";
+import moment from "moment";
 
 function AddNewInterview() {
   const [openDialog, setopenDialog] = useState(false);
-  const [JobPosition, setJobPosition] = useState();
-  const [JobDescription, setJobDescription] = useState();
-  const [JobExperience, setJobExperience] = useState();
+  const [jobPosition, setJobPosition] = useState();
+  const [jobDescription, setJobDescription] = useState();
+  const [jobExperience, setJobExperience] = useState();
+  const [loding, setLoding] = useState(false);
+  const [jsonResponse, setJsonResponse] = useState([]);
+  const { user } = useUser();
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
+    setLoding(true);
     e.preventDefault();
-    console.log(JobPosition, JobDescription, JobExperience);
+    console.log(jobPosition, jobDescription, jobExperience);
+
+    const InputPrompt =
+      "JobPostion: " +
+      jobPosition +
+      ", JobDescription: " +
+      jobDescription +
+      ", JobExperience: " +
+      jobExperience +
+      ", give " +
+      process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT +
+      " questions along with answers in json format";
+
+   try{
+    const result = await chatSession.sendMessage(InputPrompt);
+    const MockJsonResponse = result.response
+      .text()
+      .replace("```json", "")
+      .replace("```", "");
+    console.log(JSON.parse(MockJsonResponse));
+    setJsonResponse(MockJsonResponse);
+   
+   
+
+    if (MockJsonResponse) {
+      const resp = await db
+        .insert(MockInterview)
+        .values({
+          mockId: uuidv4(),
+          jsonMockResp: MockJsonResponse,
+          jobPosition: jobPosition,
+          jobDesc: jobDescription,
+          jobExperience: jobExperience,
+          createdBy: user?.primaryEmailAddress?.emailAddress,
+          createdAt: moment().format("DD-MM-YYYY"),
+        })
+        .returning({ mockId: MockInterview.mockId });
+
+      console.log("Inserted Id: ", resp);
+    } else {
+      console.log("Error in pushing data to db");
+    }
+        
+  }
+  catch(e){
+    console.log("Error in generating response from AI"+e);
+ }
+    setLoding(false);
   };
 
   return (
@@ -86,7 +144,16 @@ function AddNewInterview() {
                   >
                     Cancel
                   </Button>
-                  <Button type="submit">Start Interview</Button>
+                  <Button type="submit" disabled={loding}>
+                    {loding ? (
+                      <>
+                        <LoaderCircle className="animate-spin" />
+                        Generating from AI
+                      </>
+                    ) : (
+                      "Start Interview"
+                    )}
+                  </Button>
                 </div>
               </form>
             </DialogDescription>
