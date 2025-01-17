@@ -44,40 +44,39 @@ function AddNewInterview() {
       process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT +
       " questions along with answers in json format";
 
-   try{
-    const result = await chatSession.sendMessage(InputPrompt);
-    const MockJsonResponse = result.response
-      .text()
-      .replace("```json", "")
-      .replace("```", "");
-    console.log(JSON.parse(MockJsonResponse));
-    setJsonResponse(MockJsonResponse);
-   
-   
+    try {
+      const result = await chatSession.sendMessage(InputPrompt);
+      const MockJsonResponse = result.response
+        .text()
+        .replace("```json", "")
+        .replace("```", "");
+      console.log(JSON.parse(MockJsonResponse));
+      setJsonResponse(MockJsonResponse);
 
-    if (MockJsonResponse) {
-      const resp = await db
-        .insert(MockInterview)
-        .values({
-          mockId: uuidv4(),
-          jsonMockResp: MockJsonResponse,
-          jobPosition: jobPosition,
-          jobDesc: jobDescription,
-          jobExperience: jobExperience,
-          createdBy: user?.primaryEmailAddress?.emailAddress,
-          createdAt: moment().format("DD-MM-YYYY"),
-        })
-        .returning({ mockId: MockInterview.mockId });
+      if (MockJsonResponse) {
+        const resp = await db
+          .insert(MockInterview)
+          .values({
+            mockId: uuidv4(),
+            jsonMockResp: MockJsonResponse,
+            jobPosition: jobPosition,
+            jobDesc: jobDescription,
+            jobExperience: jobExperience,
+            createdBy: user?.primaryEmailAddress?.emailAddress,
+            createdAt: moment().format("DD-MM-YYYY"),
+          })
+          .returning({ mockId: MockInterview.mockId });
 
-      console.log("Inserted Id: ", resp);
-    } else {
-      console.log("Error in pushing data to db");
+        console.log("Inserted Id: ", resp);
+        if (resp) {
+          setopenDialog(false);
+        }
+      } else {
+        console.log("Error in pushing data to db");
+      }
+    } catch (e) {
+      console.log("Error in generating response from AI" + e);
     }
-        
-  }
-  catch(e){
-    console.log("Error in generating response from AI"+e);
- }
     setLoding(false);
   };
 
@@ -89,7 +88,10 @@ function AddNewInterview() {
       >
         <h2 className="text-lg text-center">+ Add New</h2>
       </div>
-      <Dialog open={openDialog}>
+      <Dialog
+        open={openDialog}
+        onOpenChange={(isOpen) => setopenDialog(isOpen)}
+      >
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle className="text-2xl">
