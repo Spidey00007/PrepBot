@@ -18,6 +18,7 @@ import { MockInterview } from "@/utils/schema";
 import { v4 as uuidv4 } from "uuid";
 import { useUser } from "@clerk/clerk-react";
 import moment from "moment";
+import { useRouter } from "next/navigation";
 
 function AddNewInterview() {
   const [openDialog, setopenDialog] = useState(false);
@@ -27,6 +28,7 @@ function AddNewInterview() {
   const [loding, setLoding] = useState(false);
   const [jsonResponse, setJsonResponse] = useState([]);
   const { user } = useUser();
+  const router = useRouter();
 
   const onSubmit = async (e) => {
     setLoding(true);
@@ -70,6 +72,7 @@ function AddNewInterview() {
         console.log("Inserted Id: ", resp);
         if (resp) {
           setopenDialog(false);
+          router.push("/dashboard/Interview/" + resp[0]?.mockId);
         }
       } else {
         console.log("Error in pushing data to db");
