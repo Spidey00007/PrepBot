@@ -58,7 +58,16 @@ function Interview({ params }) {
               <strong>Information</strong>
             </h2>
             <h2 className="mt-3 text-yellow-500">
-              {process.env.NEXT_PUBLIC_INFORMATION}
+              Enable Video Web Cam and Microphone to Start your AI Generated
+              Mock Interview. It Has 5 questions which you can answer and at the
+              last you will get the report on the basis of your answer.
+            </h2>
+            <h2 className="mt-3 text-red-500">
+              <strong>Note: </strong>
+            </h2>
+            <h2 className="text-red-400">
+              We never record your video. You can disable Web cam access at any
+              time if you want.
             </h2>
           </div>
         </div>
