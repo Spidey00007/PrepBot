@@ -4,6 +4,7 @@ import { db } from "@/utils/db";
 import { MockInterview } from "@/utils/schema";
 import { eq } from "drizzle-orm";
 import { Lightbulb, WebcamIcon } from "lucide-react";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Webcam from "react-webcam";
 
@@ -63,7 +64,7 @@ function Interview({ params }) {
               last you will get the report on the basis of your answer.
             </h2>
             <h2 className="mt-3 text-red-500">
-              <strong>Note: </strong>
+              <strong>Note</strong>
             </h2>
             <h2 className="text-red-400">
               We never record your video. You can disable Web cam access at any
@@ -101,7 +102,9 @@ function Interview({ params }) {
       </div>
 
       <div className="flex justify-end items-end">
-        <Button>Start Interview</Button>
+        <Link href={"/dashboard/interview/" + params.interviewId + "/start"}>
+          <Button>Start Interview</Button>
+        </Link>
       </div>
     </div>
   );
