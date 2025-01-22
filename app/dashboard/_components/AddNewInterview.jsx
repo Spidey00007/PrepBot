@@ -72,7 +72,7 @@ function AddNewInterview() {
         console.log("Inserted Id: ", resp);
         if (resp) {
           setopenDialog(false);
-          router.push("/dashboard/Interview/" + resp[0]?.mockId);
+          router.push("/dashboard/interview/" + resp[0]?.mockId);
         }
       } else {
         console.log("Error in pushing data to db");
