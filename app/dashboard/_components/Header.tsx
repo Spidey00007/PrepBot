@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { UserButton } from "@clerk/nextjs";
+import { UserButton, useUser } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,7 @@ import Link from "next/link";
 function Header() {
   const path = usePathname();
   const router = useRouter();
+  const { user, isSignedIn } = useUser();
 
   return (
     <div className="flex p-3 items-center bg-secondary justify-between shadow-sm">
@@ -41,10 +42,21 @@ function Header() {
       </ul> */}
 
       <div className="flex p-4 items-center gap-12">
-        <Link href={"/dashboard"}>
-          <Button>Get Started</Button>
-        </Link>
-        <UserButton />
+        {isSignedIn ? (
+          <div className="flex items-center gap-5">
+            <Button
+              variant={"outline"}
+              onClick={() => router.replace("/dashboard")}
+            >
+              Dashboard
+            </Button>
+            <UserButton />
+          </div>
+        ) : (
+          <Button onClick={() => router.replace("/dashboard")}>
+            Get Started
+          </Button>
+        )}
       </div>
     </div>
   );
