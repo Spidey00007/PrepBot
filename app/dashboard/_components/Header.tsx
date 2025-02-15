@@ -13,7 +13,7 @@ function Header() {
   const { user, isSignedIn } = useUser();
 
   return (
-    <div className="flex p-3 items-center bg-secondary justify-between shadow-sm">
+    <div className="flex border shadow-lg bg-purple-50 p-3 items-center justify-between">
       <Image
         className="cursor-pointer"
         onClick={() => router.replace("/")}
