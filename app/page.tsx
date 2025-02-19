@@ -33,7 +33,7 @@ export default function Home() {
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Button
               onClick={() => router.replace("/dashboard")}
-              className="items-center rounded bg-primary px-12 py-3 text-sm font-medium text-white shadow hover:bg-purple-600 focus:outline-none focus:ring active:bg-red-500 sm:w-auto"
+              className="rounded-lg bg-gradient-to-r from-purple-600 to-blue-600 px-12 py-3 text-lg font-semibold text-white shadow-lg transition-all hover:scale-110 hover:from-purple-700 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500"
             >
               Get Started
             </Button>

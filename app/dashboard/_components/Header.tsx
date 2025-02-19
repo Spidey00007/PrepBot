@@ -13,7 +13,7 @@ function Header() {
   const { user, isSignedIn } = useUser();
 
   return (
-    <div className="flex border shadow-lg bg-purple-50 p-3 items-center justify-between">
+    <div className="flex border shadow-lg bg-gradient-to-r from-purple-100 to-blue-100 p-3 items-center justify-between">
       <Image
         className="cursor-pointer"
         onClick={() => router.replace("/")}
@@ -53,7 +53,10 @@ function Header() {
             <UserButton />
           </div>
         ) : (
-          <Button onClick={() => router.replace("/dashboard")}>
+          <Button
+            onClick={() => router.replace("/dashboard")}
+            className="rounded-lg bg-gradient-to-r from-purple-600 to-blue-600 px-2 text-lg font-semibold text-white shadow-lg transition-all hover:scale-110 hover:from-purple-700 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500"
+          >
             Get Started
           </Button>
         )}
