@@ -10,12 +10,12 @@ export default function Home() {
     <div>
       <Header />
 
-      <div className="mx-auto px-4 py-6 lg:flex lg:h-screen bg-[url('/grid.svg')]">
+      <div className="mx-auto px-4 py-6 lg:flex lg:h-screen bg-[url('/grid.svg')] dark:bg-[url('/darkgrid.svg')]">
         <div className="mx-auto max-w-xl text-center">
           <h1 className="text-2xl text-gray-400 font-bold sm:text-5xl">
             Introducing
             <strong className="font-extrabold bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 bg-clip-text text-transparent sm:block">
-              MockInterview AI
+              PrepBot
             </strong>
           </h1>
 

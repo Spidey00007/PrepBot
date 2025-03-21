@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { ModeToggle } from "@/components/ModeToggle";
 
 function Header() {
   const path = usePathname();
@@ -22,24 +23,6 @@ function Header() {
         width={120}
         alt="logo"
       />
-      {/* <ul className="hidden md:flex gap-6">
-        <li
-          onClick={() => router.replace("/dashboard")}
-          className={`hover:text-primary hover:font-bold transition-all cursor-pointer ${
-            path === "/dashboard" && "text-primary font-bold"
-          }`}
-        >
-          Dashboard
-        </li>
-        
-        <li
-          className={`hover:text-primary hover:font-bold transition-all cursor-pointer ${
-            path === "/dashboard/contact" && "text-primary font-bold"
-          }`}
-        >
-          Contact
-        </li>
-      </ul> */}
 
       <div className="flex p-4 items-center gap-12">
         {isSignedIn ? (
@@ -50,6 +33,7 @@ function Header() {
             >
               Dashboard
             </Button>
+            <ModeToggle />
             <UserButton />
           </div>
         ) : (
