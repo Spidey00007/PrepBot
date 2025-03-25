@@ -54,7 +54,6 @@ function RecordAnswerSection({
   };
 
   const UpdateUserAnswer = async () => {
-    console.log(userAnswer);
     setLoading(true);
 
     const feedbackPrompt =

@@ -30,7 +30,6 @@ function Feedback({ params }) {
       .orderBy(UserAnswer.id);
 
     setFeedbackList(result);
-    console.log(result);
   };
 
   return (

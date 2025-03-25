@@ -33,7 +33,6 @@ function AddNewInterview() {
   const onSubmit = async (e) => {
     setLoding(true);
     e.preventDefault();
-    console.log(jobPosition, jobDescription, jobExperience);
 
     const InputPrompt =
       "JobPostion: " +
@@ -52,7 +51,6 @@ function AddNewInterview() {
         .text()
         .replace("```json", "")
         .replace("```", "");
-      console.log(JSON.parse(MockJsonResponse));
       setJsonResponse(MockJsonResponse);
 
       if (MockJsonResponse) {
@@ -69,7 +67,6 @@ function AddNewInterview() {
           })
           .returning({ mockId: MockInterview.mockId });
 
-        console.log("Inserted Id: ", resp);
         if (resp) {
           setopenDialog(false);
           router.push("/dashboard/interview/" + resp[0]?.mockId);
