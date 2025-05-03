@@ -110,6 +110,24 @@ function RecordAnswerSection({
         />
       </div>
 
+      {isRecording && (
+        <div className="w-full max-w-2xl mt-4 bg-gray-100 dark:bg-zinc-800 p-4 rounded-lg shadow-md">
+          <h2 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">
+            Live Transcript
+          </h2>
+          <ul className="list-disc list-inside space-y-1 max-h-48 overflow-y-auto text-gray-800 dark:text-gray-200">
+            {results.slice(-3).map((result) => (
+              <li key={result.timestamp}>{result.transcript}</li>
+            ))}
+            {interimResult && (
+              <li className="italic text-gray-500 dark:text-gray-400">
+                {interimResult}
+              </li>
+            )}
+          </ul>
+        </div>
+      )}
+
       <Button
         disable={loading}
         variant="outline"

@@ -33,16 +33,25 @@ function Header() {
             >
               Dashboard
             </Button>
+            <Button
+              variant={"outline"}
+              onClick={() => router.replace("/dashboard/upgrade")}
+            >
+              Upgrade
+            </Button>
             <ModeToggle />
             <UserButton />
           </div>
         ) : (
-          <Button
-            onClick={() => router.replace("/dashboard")}
-            className="rounded-lg bg-gradient-to-r from-purple-600 to-blue-600 px-2 text-lg font-semibold text-white shadow-lg transition-all hover:scale-110 hover:from-purple-700 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500"
-          >
-            Get Started
-          </Button>
+          <div className="flex items-center gap-5">
+            <ModeToggle />
+            <Button
+              onClick={() => router.replace("/dashboard")}
+              className="rounded-lg bg-gradient-to-r from-purple-600 to-blue-600 px-2 text-lg font-semibold text-white shadow-lg transition-all hover:scale-110 hover:from-purple-700 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500"
+            >
+              Get Started
+            </Button>
+          </div>
         )}
       </div>
     </div>
